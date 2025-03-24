@@ -1,66 +1,81 @@
-## Foundry
+# FundMe - Смарт-контракт для збору коштів
 
-**Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**
+Це смарт-контракт на Solidity, який дозволяє збирати кошти в ETH. Контракт використовує Chainlink для отримання актуальних цін ETH/USD.
 
-Foundry consists of:
+## Функціональність
 
--   **Forge**: Ethereum testing framework (like Truffle, Hardhat and DappTools).
--   **Cast**: Swiss army knife for interacting with EVM smart contracts, sending transactions and getting chain data.
--   **Anvil**: Local Ethereum node, akin to Ganache, Hardhat Network.
--   **Chisel**: Fast, utilitarian, and verbose solidity REPL.
+-   Збір коштів в ETH
+-   Конвертація ETH в USD через Chainlink Price Feeds
+-   Мінімальна сума внеску в USD
+-   Відстеження донорів та їх внесків
+-   Можливість виведення коштів власником контракту
 
-## Documentation
+## Вимоги
 
-https://book.getfoundry.sh/
+-   Foundry
+-   Git
+-   Node.js (для тестування)
 
-## Usage
+## Встановлення
 
-### Build
+1. Клонуйте репозиторій:
 
-```shell
-$ forge build
+```bash
+git clone https://github.com/s1lkr0ad/fund-me.git
+cd fund-me
 ```
 
-### Test
+2. Встановіть залежності:
 
-```shell
-$ forge test
+```bash
+forge install
 ```
 
-### Format
+3. Створіть файл `.env` на основі `.env.example`:
 
-```shell
-$ forge fmt
+```bash
+cp .env.example .env
 ```
 
-### Gas Snapshots
+4. Заповніть `.env` файл вашими значеннями:
 
-```shell
-$ forge snapshot
+```
+PRIVATE_KEY=your_private_key
+SEPOLIA_RPC_URL=your_sepolia_rpc_url
+ETHERSCAN_API_KEY=your_etherscan_api_key
 ```
 
-### Anvil
+## Команди
 
-```shell
-$ anvil
+-   Компіляція контрактів:
+
+```bash
+forge build
 ```
 
-### Deploy
+-   Запуск тестів:
 
-```shell
-$ forge script script/Counter.s.sol:CounterScript --rpc-url <your_rpc_url> --private-key <your_private_key>
+```bash
+forge test
 ```
 
-### Cast
+-   Деплой на Sepolia:
 
-```shell
-$ cast <subcommand>
+```bash
+make deploy
 ```
 
-### Help
+## Структура проекту
 
-```shell
-$ forge --help
-$ anvil --help
-$ cast --help
-```
+-   `src/` - вихідний код смарт-контрактів
+    -   `FundMe.sol` - основний контракт
+    -   `PriceConverter.sol` - утиліти для конвертації цін
+-   `test/` - тести
+-   `script/` - скрипти для деплою
+-   `lib/` - залежності
+-   `cache/` - кеш компіляції
+-   `out/` - скомпільовані контракти
+
+## Ліцензія
+
+MIT
